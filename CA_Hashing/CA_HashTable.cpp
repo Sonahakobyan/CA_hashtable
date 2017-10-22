@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "stdafx.h"
 #include "CA_HashTable.h"
 #include <iostream>
 using namespace std;
@@ -56,12 +56,9 @@ CA_HashTable::insert(int key)
 	}
 	else
 	{
-		cout << key << endl;
-		cout << (*cur)->key_<<endl;
-		cout << (*cur)->next_ << endl;
 		while ((*cur)->next_ != 0)
 		{
-			*cur = (*cur)->next_;
+			cur = &(*cur)->next_;
 		}
 		(*cur)->next_ = new Node(key, 0);
 	}
@@ -70,27 +67,31 @@ CA_HashTable::insert(int key)
 void  
 CA_HashTable::remove(int key) 
 {
-	int code = hashCode(key);
-	Node** cur = &table_[code];
-	Node** tmp = (cur);
-	while (*cur != nullptr)
-	{
-		if ((*cur)->key_ == key)
-		{
-			if ((*cur)->next_ != nullptr) {
-				Node* temp = (*cur)->next_;
-				delete *cur;
-				*cur = temp;
-			}
-			else {
-				(*tmp)->next_ = nullptr;
-				delete *cur;
-			}
-			return;
-		}
-		tmp = cur;
-		*cur = (*cur)->next_;
-	}
+    int code = hashCode(key);
+    Node** cur = &table_[code];
+    Node** tmp = (cur);
+    while (*cur != nullptr)
+    {
+        if ((*cur)->key_ == key)
+        {
+            if ((*cur)->next_ != nullptr) {
+                Node* temp = (*cur)->next_;
+                delete *cur;
+                *cur = temp;
+            }
+            else if (*tmp == *cur) {
+                (*tmp) = nullptr;
+                delete *cur;
+            }
+            else {
+                (*tmp)->next_ = nullptr;
+                delete *cur;
+            }
+            return;
+        }
+        tmp = cur;
+        cur = &((*cur)->next_);
+    }
 }
 	
 void  
