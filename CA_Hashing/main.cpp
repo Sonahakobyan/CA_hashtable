@@ -23,13 +23,6 @@ int _tmain(int argc, _TCHAR* argv[])
      table.insert(8);
      table.insert(9);
      table.insert(10);  
-     table.insert(11);
-     table.insert(12);
-     table.insert(13);
-     table.insert(14);
-     table.insert(15);
-     table.insert(16);
-     table.insert(17);
 
     
     table.print();
